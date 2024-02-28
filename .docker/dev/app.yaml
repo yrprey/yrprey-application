@@ -1,0 +1,58 @@
+version: "3.7"
+services:
+  # mailer:
+  #   image: maildev/maildev
+  #   ports:
+  #     - 1080:1080
+  #     - 1025:1025
+  frontend:
+    image: node:18-alpine
+    working_dir: /app/
+    restart: always
+    ports:
+      - 3005:3000
+    networks:
+      - yrprey_net
+    volumes:
+      - ../../frontend:/app/
+    command: >
+      /bin/sh -c "
+      cd /app/ &&
+      yarn && yarn dev"
+
+  backend:
+    image: webdevops/php-nginx:7.4-alpine
+    working_dir: /var/www/html/
+    restart: always
+    ports:
+      - 82:80
+    networks:
+      - yrprey_net
+    volumes:
+      - ../../backend:/var/www/html/
+      - ./location-nginx.conf:/opt/docker/etc/nginx/vhost.common.d/10-location-root.conf
+    environment:
+      WEB_DOCUMENT_ROOT: /var/www/html/
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8089:8080
+    networks:
+      - yrprey_net
+  database:
+    image: mariadb:10
+    environment:
+      MYSQL_DATABASE: yrprey
+      MYSQL_PASSWORD: yrprey
+      MYSQL_ROOT_PASSWORD: yrprey
+      MYSQL_USER: yrprey
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - ../../data/mysql:/var/lib/mysql
+    # ports:
+    #   - 3311:3306
+    networks:
+      - yrprey_net
+networks:
+  yrprey_net:

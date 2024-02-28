@@ -1,0 +1,41 @@
+{
+  "name": "yrprey",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.1.1",
+    "@types/node": "20.3.1",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "animate.css": "^4.1.1",
+    "aos": "^2.3.4",
+    "axios": "^1.4.0",
+    "bootstrap": "3.3.5",
+    "eslint": "8.43.0",
+    "eslint-config-next": "13.4.7",
+    "framer-motion": "^10.12.17",
+    "jquery": "2.1.4",
+    "lodash": "4.16.0",
+    "next": "13.4.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.0",
+    "react-icons": "^4.10.1",
+    "styled-components": "^6.0.0-rc.6",
+    "sweetalert2": "^11.10.5",
+    "swiper": "^9.4.1",
+    "typescript": "5.1.3",
+    "yup": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.4",
+    "@types/axios": "^0.14.0",
+    "@types/react-icons": "^3.0.0"
+  }
+}
