@@ -1,4 +1,4 @@
-## Bem ao Yrprey
+## Bem vindo ao Yrprey
 
 
 Esse será o seu guia para consiga rodar o projeto na sua máquina, vamos usar docker para que consiga facilitar o processo de setup inicial.
