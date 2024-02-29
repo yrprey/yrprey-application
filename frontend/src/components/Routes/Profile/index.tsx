@@ -70,7 +70,7 @@ const Profile = () => {
           backdrop: `rgba(0, 0, 0, 0.493)`,
           timer: 1500,
         });
-        const urlProfile = `http://yrprey.com/profile`;
+        const urlProfile = `${process.env.NEXT_PUBLIC_API}/profile`;
         const responseProfile = await axios.post(urlProfile, {
           token: data.token,
         });

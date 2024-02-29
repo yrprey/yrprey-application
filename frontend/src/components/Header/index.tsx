@@ -11,7 +11,14 @@ import Sidebar from "@/components/Sidebar";
 import { HeaderContainer, DivHeader } from "./style";
 
 const Header = () => {
-  const { router, tokenLocal, isMobile, setUser, isSideBarVisible, showSideBar } = useContext(Context);
+  const {
+    router,
+    tokenLocal,
+    isMobile,
+    setUser,
+    isSideBarVisible,
+    showSideBar,
+  } = useContext(Context);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -31,24 +38,30 @@ const Header = () => {
 
   const onProfile = async (data: any) => {
     try {
-      const response = await axios.post("http://yrprey.com/profile", data);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/profile`,
+        data,
+      );
       if (response.data.results[0].status === 200) {
-        setUser(JSON.stringify(response.data.results[0]))
+        setUser(JSON.stringify(response.data.results[0]));
       }
     } catch (error) {
-      error
+      error;
     }
   };
 
   const onLogout = async (data: any) => {
     try {
-      const response = await axios.post("http://yrprey.com/logout", data);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/logout`,
+        data,
+      );
       if (response.data.results[0].status === 200) {
         const responseData = response?.data?.results[0];
         window.location.href = responseData.msg;
       }
     } catch (error) {
-      error
+      error;
     }
   };
 
@@ -71,15 +84,15 @@ const Header = () => {
             </div>
             {isMobile ? (
               <>
-                {!isSideBarVisible ?
+                {!isSideBarVisible ? (
                   <>
                     <FaBars className="menu-mobile" onClick={showSideBar} />
                   </>
-                  :
+                ) : (
                   <>
                     <FaTimes className="menu-mobile" onClick={showSideBar} />
                   </>
-                }
+                )}
               </>
             ) : (
               <>
@@ -99,25 +112,37 @@ const Header = () => {
                 </nav>
                 {tokenLocal ? (
                   <div className="login-register">
-                    <button className="login" onClick={() => {
-                      onLogout({ token: tokenLocal, url: "/" })
-                      localStorage.clear()
-                    }}>
+                    <button
+                      className="login"
+                      onClick={() => {
+                        onLogout({ token: tokenLocal, url: "/" });
+                        localStorage.clear();
+                      }}
+                    >
                       Logout
                     </button>
-                    <button className="btn-register" onClick={() => {
-                      onProfile({ token: tokenLocal })
-                      router.push("/profile")
-                    }}>
+                    <button
+                      className="btn-register"
+                      onClick={() => {
+                        onProfile({ token: tokenLocal });
+                        router.push("/profile");
+                      }}
+                    >
                       My account
                     </button>
                   </div>
                 ) : (
                   <div className="login-register">
-                    <button className="login" onClick={() => router.push("/login")}>
+                    <button
+                      className="login"
+                      onClick={() => router.push("/login")}
+                    >
                       Login
                     </button>
-                    <button className="btn-register" onClick={() => router.push("/register")}>
+                    <button
+                      className="btn-register"
+                      onClick={() => router.push("/register")}
+                    >
                       Get started
                     </button>
                   </div>

@@ -6,7 +6,12 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import { HiOutlineStatusOnline } from "react-icons/hi";
-import SwiperCore, { Autoplay, EffectFade, Navigation, Pagination } from "swiper";
+import SwiperCore, {
+  Autoplay,
+  EffectFade,
+  Navigation,
+  Pagination,
+} from "swiper";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
@@ -26,8 +31,8 @@ const Carousel = () => {
 
   function getDataAtualFormatada() {
     const dataAtual = new Date();
-    const dia = String(dataAtual.getDate()).padStart(2, '0');
-    const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+    const dia = String(dataAtual.getDate()).padStart(2, "0");
+    const mes = String(dataAtual.getMonth() + 1).padStart(2, "0");
     const ano = String(dataAtual.getFullYear()).slice(-2); // Pegando apenas os dois últimos dígitos do ano
     return `${dia} - ${mes} - ${ano}`;
   }
@@ -36,20 +41,20 @@ const Carousel = () => {
     const fetchData = async () => {
       try {
         const response = await axios.post<{ results: Slide[] }>(
-          "http://yrprey.com/resposta",
+          `${process.env.NEXT_PUBLIC_API}/resposta`,
           {
-            id: "1"
+            id: "1",
           },
           {
             headers: {
-              "Content-Type": "application/json"
-            }
-          }
+              "Content-Type": "application/json",
+            },
+          },
         );
-        response
+        response;
         setSlides(response.data.results);
       } catch (error) {
-        error
+        error;
       }
     };
 
@@ -77,7 +82,12 @@ const Carousel = () => {
                 <div className="container-carousel">
                   <Image
                     className="img-carousel"
-                    src={`/slide-${(slide.image.match(/slide-(.*?)\.webp/)?.[1].split("-").pop() || "")}.webp`}
+                    src={`/slide-${
+                      slide.image
+                        .match(/slide-(.*?)\.webp/)?.[1]
+                        .split("-")
+                        .pop() || ""
+                    }.webp`}
                     width={1000}
                     height={1000}
                     alt="img-carousel"
@@ -90,14 +100,30 @@ const Carousel = () => {
                     </button>
                     <p className="carousel-date">{getDataAtualFormatada()}</p>
                     <h2 className="carousel-title">
-                      YRprey- {slide.image.match(/slide-(.*?)\.webp/)?.[1].split("-").pop()}
+                      YRprey-{" "}
+                      {slide.image
+                        .match(/slide-(.*?)\.webp/)?.[1]
+                        .split("-")
+                        .pop()}
                     </h2>
-                    <p className="carousel-details">Collection - {slide.image.match(/slide-(.*?)\.webp/)?.[1].split("-").pop()}</p>
-                    <Link href={"/shop/collection/" + (slide.image.match(/slide-(.*?)\.webp/)?.[1].split("-").pop() || "")}
-                      className="carousel-button">
-                      <button className="carousel-button">
-                        See drop
-                      </button>
+                    <p className="carousel-details">
+                      Collection -{" "}
+                      {slide.image
+                        .match(/slide-(.*?)\.webp/)?.[1]
+                        .split("-")
+                        .pop()}
+                    </p>
+                    <Link
+                      href={
+                        "/shop/collection/" +
+                        (slide.image
+                          .match(/slide-(.*?)\.webp/)?.[1]
+                          .split("-")
+                          .pop() || "")
+                      }
+                      className="carousel-button"
+                    >
+                      <button className="carousel-button">See drop</button>
                     </Link>
                   </div>
                 </div>

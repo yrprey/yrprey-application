@@ -11,7 +11,7 @@ const FormContact = () => {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm<IFormContact>({
     resolver: yupResolver(formSchema),
   });
@@ -19,9 +19,12 @@ const FormContact = () => {
   const onSendMessage = async (data: any) => {
     try {
       const dataToSend = { ...data, dest: "contact@yrprey.com" };
-      const response = await axios.post("http://yrprey.com/message", dataToSend);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/message`,
+        dataToSend,
+      );
       if (response.data.results[0].status === 200) {
-        localStorage.setItem("token", response.data.results[0].token)
+        localStorage.setItem("token", response.data.results[0].token);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -32,9 +35,9 @@ const FormContact = () => {
           color: "#fff",
           background: "#28292a",
           backdrop: `rgba(0, 0, 0, 0.493)`,
-          timer: 1500
+          timer: 1500,
         });
-        reset()
+        reset();
       } else {
         Swal.fire({
           position: "center",
@@ -46,11 +49,11 @@ const FormContact = () => {
           color: "#fff",
           background: "#28292a",
           backdrop: `rgba(0, 0, 0, 0.493)`,
-          timer: 1500
+          timer: 1500,
         });
       }
     } catch (error) {
-      error
+      error;
     }
   };
 

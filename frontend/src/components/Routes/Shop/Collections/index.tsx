@@ -30,12 +30,14 @@ const Collections = () => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response: AxiosResponse<ColorData> = await axios.get("http://yrprey.com/cards");
+        const response: AxiosResponse<ColorData> = await axios.get(
+          `${process.env.NEXT_PUBLIC_API}/cards`,
+        );
         if (response.data) {
           setProductsList(response.data);
         }
       } catch (error) {
-       error
+        error;
       }
     };
 
@@ -68,9 +70,7 @@ const Collections = () => {
       <Header />
       <StyledCollectionsSection>
         <div className="container">
-          <ul className="content">
-            {products && renderProducts(products)}
-          </ul>
+          <ul className="content">{products && renderProducts(products)}</ul>
         </div>
       </StyledCollectionsSection>
       <Footer />

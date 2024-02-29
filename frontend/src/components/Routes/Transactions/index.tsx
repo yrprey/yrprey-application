@@ -14,9 +14,9 @@ const TransactionsPages = () => {
   const { tokenLocal, router } = useContext(Context);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
-      router.push('/login');
+      router.push("/login");
     }
   }, []);
 
@@ -25,15 +25,17 @@ const TransactionsPages = () => {
   useEffect(() => {
     const fetchDataTransations = async (data: any) => {
       try {
-        const response = await axios.post("http://yrprey.com/v2/status/", data);
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_API}/v2/status`,
+          data,
+        );
         setListTransations(response.data.results);
       } catch (error) {
-        error
+        error;
       }
     };
 
     fetchDataTransations({ token: tokenLocal });
-
   }, [tokenLocal]);
 
   if (!tokenLocal) {
@@ -41,7 +43,7 @@ const TransactionsPages = () => {
       <>
         <Error404Page />
       </>
-    )
+    );
   }
 
   return (
@@ -59,14 +61,20 @@ const TransactionsPages = () => {
       <StyledTransactionsSection>
         <div className="container">
           <h1>My transactions</h1>
-          {listTransations ? <>
-            {listTransations.slice().reverse().map((transaction, index) => (
-              <CardTransaction key={index} transaction={transaction} />
-            ))}
-          </> :
+          {listTransations ? (
+            <>
+              {listTransations
+                .slice()
+                .reverse()
+                .map((transaction, index) => (
+                  <CardTransaction key={index} transaction={transaction} />
+                ))}
+            </>
+          ) : (
             <>
               <p>There are no transactions</p>
-            </>}
+            </>
+          )}
         </div>
       </StyledTransactionsSection>
       <Footer />

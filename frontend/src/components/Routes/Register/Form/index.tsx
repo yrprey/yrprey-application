@@ -23,7 +23,10 @@ const FormRegister = () => {
 
   const onSubmitRegister = async (data: any) => {
     try {
-      const response = await axios.post("http://yrprey.com/register", data);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API}/register`,
+        data,
+      );
       if (response.data.results[0].status === 200) {
         Swal.fire({
           position: "center",
@@ -35,25 +38,26 @@ const FormRegister = () => {
           color: "#fff",
           background: "#28292a",
           backdrop: `rgba(0, 0, 0, 0.493)`,
-          timer: 1500
+          timer: 1500,
         });
-        router.push('/login');
+        router.push("/login");
       } else {
         Swal.fire({
           position: "center",
           icon: "error",
-          title: "Algo deu errado. Por favor, verifique suas credenciais e tente novamente.",
+          title:
+            "Algo deu errado. Por favor, verifique suas credenciais e tente novamente.",
           showConfirmButton: false,
           width: 600,
           padding: "3em",
           color: "#fff",
           background: "#28292a",
           backdrop: `rgba(0, 0, 0, 0.493)`,
-          timer: 1500
+          timer: 1500,
         });
       }
     } catch (error) {
-       error
+      error;
     }
   };
 
