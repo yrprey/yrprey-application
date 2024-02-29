@@ -21,7 +21,7 @@ services:
       yarn && yarn dev"
 
   backend:
-    image: webdevops/php-nginx:7.4-alpine
+    image: webdevops/php-apache:7.4-alpine
     working_dir: /var/www/html/
     restart: always
     ports:
