@@ -1,6 +1,6 @@
 # Yprey
 
-![yprey](https://i.imgur.com/zHoDJG9_d.webp?maxwidth=760&fidelity=grand)
+![yrprey](https://i.imgur.com/zHoDJG9_d.webp?maxwidth=760&fidelity=grand)
 
 **Backend created by [Fernando Mengali](https://www.linkedin.com/in/fernando-mengali-273504142/)**
 
@@ -54,16 +54,57 @@ Complete table with endpoint routes, vulnerability details and a comparison betw
 For more details you can use a service like the [swagger editor](https://editor.swagger.io).
 
 
-## How to create the environment:
+## How to create the environment Docker:
 You can created one local servers:
 
-Backend
-- Linux Ubuntu with PHP and MySQL
-- Give chmod 777 /var/www/html/
-- Give chmod 777 /var/www/html/log/log.php
-- Create database with name yrprey
-- Download the yrprey database file (yrprey.sql) and run it in the MySQL database
-- In the database yrprey, dive: "SET GLOBAL sql_mode = ''"
+### Starting the project
+
+```sh
+## docker application
+docker-compose -f .docker/dev/app.yaml -p yrprey  up -d
+```
+
+
+### Configuring the database
+
+```sh
+# 01 - access the admin on the docker server portal http://localhost:8089  
+# 02 - Server field: database
+# 03 - User: root
+# 04 - Password: yrprey
+# 05 - Database: yrprey
+# 06 - http://localhost:8089/adminer?server=database&username=root&db=yrprey&import=
+# 07 - Local path to import database: yrprey-docker-main\yrprey-docker-main\backend
+# 08 - Name database yrprey.sql
+# 09 - Import database yrprey.sql
+# 10 - Click Execute
+```
+
+### Adjusting .env file
+
+Check if your docker uses localhost as a base, if it doesn't use server localhost, adjust the variable `NEXT_PUBLIC_API` in *.env*.
+
+
+### Accessing the frontend
+
+To access the frontend go to `{your host}:3005`.
+
+Login to validate credentials.
+
+```sh
+user: admin
+pwd: admin
+
+user: root
+pwd: 1234
+
+```
+
+### Accessing the backtend
+
+To access the backend go to `{your host}:82`.
+
+
 
 ## Reporting Vulnerabilities
 
