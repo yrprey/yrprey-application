@@ -100,7 +100,7 @@ pwd: 1234
 
 ```
 
-### Accessing the backtend
+### Accessing the backend
 
 To access the backend go to `{your host}:82`.
 
